@@ -8,22 +8,15 @@ export default class Cart {
     getAll(): Buyable[] { return [...this.items]; }
 
     cost(): number {
-        let cost: number = 0;
-        for (let item of this.items) { 
-            cost += item.price;
-        }
-        return cost;
+        return this.items.reduce((sum, item) => sum + item.price, 0);
     }
 
     discountCost(discount: number): number {
-        let discountCost: number;
-        discountCost = this.cost() * (1 - discount / 100);
-        return discountCost;
+        return this.cost() * (1 - discount / 100);
     }
 
     remove(id: number): void {
-        let index: number;
-        index = this.items.findIndex(product => product.id === id);
+        const index = this.items.findIndex(product => product.id === id);
         this.items.splice(index, 1);
     }
 }
